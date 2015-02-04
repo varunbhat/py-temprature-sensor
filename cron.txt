@@ -1,0 +1,3 @@
+* * * * * sudo python /opt/pitemp/bin/pitemp -t minute -f /opt/pigpio/etc/config.cfg
+@hourly sudo python /opt/pitemp/bin/pitemp -t hourly -f /opt/pigpio/etc/config.cfg
+@daily sudo python /opt/pitemp/bin/pitemp -t daily -f /opt/pigpio/etc/config.cfg
