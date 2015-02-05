@@ -55,8 +55,8 @@ class pigpio:
     def insert_day_count(self, temp):
         return self.db.execute(SQL_QUERIES['PUT_DAILY_COUNT'] % temp)
 
-    def truncate_day_s_raw_count(self):
-        self.db.execute(SQL_QUERIES['PURGE_RAW_COUNT'])
+    def truncate_day_s_temp_min(self):
+        self.db.execute(SQL_QUERIES['PURGE_TEMP_MIN'])
 
 
 def main():
@@ -75,7 +75,7 @@ def main():
     if args.type is not None and args.type in ['hourly', 'minute', 'daily']:
         ds = pigpio()
         if args.type == 'minute':
-            res = ds.getTemp()[0]['temperature_c']
+            res = ds.getTemp()[0]['temperature_f']
             print("Previous min Temp:", res)
             ds.insert_min_count(res)
 
@@ -88,7 +88,7 @@ def main():
             res = ds.get_day_count()
             print("Previous day Temp:", res)
             ds.insert_day_count(res)
-            # ds.truncate_day_s_raw_count()
+            ds.truncate_day_s_temp_min()
 
     else:
         print("Please run with `type` arguement\nRun Type Options:\n\t '--type=hourly'\n\t '--type=minute'\n\t --type=daily")
